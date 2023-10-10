@@ -7,22 +7,35 @@ _Copy this recipe template to design and create a database table from a specific
 ```
 
 # Request:
-POST /albums
+GET /artists
+
+# Expected response (200 OK)
+Pixies, ABBA, Taylor Swift, Nina Simone
+
+AND
+
+# Request:
+POST /artists
 
 # With body parameters:
-title=Voyage
-release_year=2022
-artist_id=2
+name=Wild nothing
+genre=Indie
 
 # Expected response (200 OK)
 (No content)
+
+# Then subsequent request:
+GET /artists
+
+# Expected response (200 OK)
+Pixies, ABBA, Taylor Swift, Nina Simone, Wild nothing
 
 ```
 
 ```
 Nouns:
 
-albums, title, release_year, artist_id
+artist, name, genre
 ```
 
 ## 2. Infer the Table Name and Columns
@@ -31,11 +44,11 @@ Put the different nouns in this table. Replace the example with your own nouns.
 
 | Record                | Properties          |
 | --------------------- | ------------------- |
-| album                 | title, release_year, artist_id |
+| artist                 | name, genre |
 
-Name of the table (always plural): `albums`
+Name of the table (always plural): `artists`
 
-Column names: `title`, `release_year`, `artist_id`
+Column names: `name`, `genre`
 
 ## 3. Decide the column types
 
@@ -47,11 +60,10 @@ Remember to **always** have the primary key `id` as a first column. Its type wil
 
 ```
 # EXAMPLE:
-Table: albums
+Table: artists
 id: SERIAL
-title: text
-release_year: int
-artist_id: int
+name: text
+genre: text
 ```
 
 ## 4. Write the SQL
@@ -62,11 +74,10 @@ artist_id: int
 
 -- Replace the table name, columm names and types.
 
-CREATE TABLE albums (
+CREATE TABLE artists (
   id SERIAL PRIMARY KEY,
-  title text,
-  release_year int,
-  artist_id int
+  name text,
+  genre text
 );
 ```
 

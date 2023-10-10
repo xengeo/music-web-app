@@ -10,24 +10,25 @@ _Include the HTTP method, the path, and any query or body parameters._
 # EXAMPLE
 
 # Request:
-GET /albums
-# Parameters: None
-# Response: List of albums & 202 OK status
+#         GET /artists
+# Parameters: 
+#         None
+# Expected Response:
+#         (202 OK)
+#         Pixies, ABBA, Taylor Swift, Nina Simone
 
+AND
 
 
 # Request:
-POST /albums
+#         POST /artists
+# Parameters (body): 
+#         name=Wild nothing
+#         genre=Indie 
+# Expected Response:
+#         (202 OK)
+#         No content / ''
 
-# With body parameters:
-title=Voyage
-release_year=2022
-artist_id=2
-
-# Expected response (200 OK)
-(No content)
-
-Your test should assert that the new album is present in the list of records returned by GET /albums.
 
 ```
 
@@ -40,30 +41,49 @@ _Remember to try out different parameter values._
 _Include the status code and the response body._
 
 ```python
-# EXAMPLE
 
 # Request:
-#         POST /albums
-# Parameters (body):
-#         title=Voyage
-#         release_year=2022
-#         artist_id=2
-# Expected:
-#         200 OK
-#         (No content)
-# Test it is added
-
-
-
-# Request:
-#           GET /albums
+#         GET /artists
 # Parameters: 
-#           None
-# Response: 
-#           List of albums & 202 OK status
-# Test it returns all books
+#         None
+# Expected Response:
+#         (202 OK)
+#         Pixies, ABBA, Taylor Swift, Nina Simone
+"""
+Test that the request GET method with path /artists returns list of artist names
+"""
 
 
+# Request:
+#         POST /artists
+# Parameters (body): 
+#         name=Wild nothing
+#         genre=Indie 
+# Expected Response:
+#         (202 OK)
+#         No content / ''
+# 
+# Then a subsequent request for:
+#          GET /artists
+# Expected response:
+#         (202 OK)
+#         Pixies, ABBA, Taylor Swift, Nina Simone, Wild nothing
+"""
+First Test the POST /artists route returns a status code 200, with body params with new artist
+Then check that the request GET /artists returns list of artist names including the new artist
+"""
+
+
+# Request:
+#         POST /artists
+# Parameters (body): 
+#         None
+# Expected Response:
+#         (400 Invalid Request)
+#         'You must provide an artist name and genre parameter'
+"""
+Test POST /artists with no body parameters returns 400 error status code, and message
+"""
 
 
 ```
